@@ -24,10 +24,14 @@
 	        <li><a href="#">Contact Us</a></li>
 	      </ul>
 	      <ul class="nav navbar-nav navbar-right">
-	        <li><a href="/login">Login</a></li>
-	        <li><a href="/register">Register</a></li>
-	        <li><a href="/logout">Log out</a></li>
-	        <li><a href="/favorite">My favorite</a></li>
+	      	<% if(!currentUser) { %>
+		        <li><a href="/login">Login</a></li>
+		        <li><a href="/register">Register</a></li>	      	
+	      	<% } else { %>
+	      		<li><a href='#'>Signed in as <%= currentUser.username %></a></li>
+		        <li><a href="/logout">Log out</a></li>
+		        <li><a href="/favorite">My favorite</a></li>
+	      	<% } %>
 	        <li><a href="/blogs">Blog Posts</a></li>
 	      </ul>
 	    </div><!-- /.navbar-collapse -->

@@ -32,6 +32,12 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+// (middleware) pass user object to every routes
+app.use(function(req, res, next){
+   res.locals.currentUser = req.user;
+   next();
+});
+
 //============
 // ROUTES
 //============
