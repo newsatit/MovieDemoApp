@@ -1,0 +1,28 @@
+<% include partials/header %>
+	<!-- background image -->
+	<img class="bgmimick" src="https://wallpaperscraft.com/image/star_art_sky_night_people_silhouette_98142_1920x1080.jpg" />.
+
+	<!-- nav bar -->
+	<% include partials/navbar %>
+	
+	<!-- movie info-->
+	<div class="container">
+	    <div id="movieInDis">
+        	<h1><%=movie.Title%></h1>
+        	<img src="<%=movie.Poster%>">
+        	<h2>Plot</h2>
+        	<p><%=movie.Plot%></p>
+	    </div>
+
+	</div>
+    
+  
+    <script
+	src="https://code.jquery.com/jquery-3.2.1.min.js"
+	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+	crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<script src="/main.js"></script> 
+
+
+<% include partials/footer %>

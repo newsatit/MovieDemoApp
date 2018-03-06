@@ -1,0 +1,55 @@
+<% include partials/header %>
+	<!-- background image -->
+	<img class="bgmimick" src="https://wallpaperscraft.com/image/star_art_sky_night_people_silhouette_98142_1920x1080.jpg" />.
+
+	<!-- nav bar -->
+	<% include partials/navbar %>
+	
+	<!-- search results -->
+	
+	<div class = "container" id="searchResults">
+		    <% if(data.length > 0){ %>
+		    	<% for(var i = 0; i < data.length ; i+=3){ %>
+		      		<div class="row">
+		          	<% for(var j = 0; j<3 && j + i < data.length; j++){ %>
+		          		<div class="col-lg-4 col-md-6">
+		               		<div class = "thumbnail">
+		  			      		<img class="img-thumbnail" src= <%= data[i+j].Poster %> >
+		  			      		<form action="/favorite/new/<%=data[i+j].Title%>" method="POST">
+		  			      			<button type="submit" class="btn btn-primary">Add to favorite</button>
+		  			      		</form>
+		  			      		<div class = "caption"> 
+		  			      			<h4><%= data[i+j].Title %></h4>
+		  			      		</div>
+		  					</div>
+		  		  		</div>
+		  		 	<% } %>
+		       		</div>
+		       	<% } %>
+	        <!-- text search results-->
+	        <div>
+	            <h2>Results of the "<%= query%>" <%= errorMessage %></h2>
+	            <ul>
+	            	<% for(var i = 0;i < data.length ; i++){ %>
+	                
+	                    <li> <%= data[i].Title %> </li>
+	                <% } %>
+	            </ul>
+	        </div>		       
+		    <% }else if(errorMessage === "Movie not found!"){ %>
+		    		
+		    	<h1 style="text-align: center">movie not found <%= errorMessage %></h1>
+		    	<p1><%= errorMessage %></p1>
+		    <% }else{ %>
+		    	<h1 style="text-align: center">You have to type something</h1>
+		    <% } %>
+	</div>
+	    
+	    
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+	crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<script src="/main.js"></script> 
+
+
+<% include partials/footer %>

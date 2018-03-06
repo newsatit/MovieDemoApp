@@ -1,0 +1,105 @@
+<% include partials/header %>
+	<!-- background image -->
+	<img class="bgmimick" src="https://wallpaperscraft.com/image/star_art_sky_night_people_silhouette_98142_1920x1080.jpg" />.
+
+	<!-- nav bar -->
+	<% include partials/navbar %>
+
+	<!-- jumbotron -->
+	<div class = "container">
+    <header class="jumbotron">
+    	<h1>Hello World</h1>
+    	<h3>How much wood would a woodchuck chuck if a woodchuck could chuck wood</h3>
+    	<hr>
+    	<button type="button" class="btn btn-danger">Change Background</button>
+    </header>
+  </div>
+  
+  <!-- sign in form -->
+  <div class="container" >
+    <form class="form-inline" action="/signin" method="POST">
+      <div class="form-group">
+        <label class="sr-only" for="exampleInputUsername3">Username</label>
+        <input type="text" name="username" class="form-control" id="exampleInputUsername3" placeholder="Username">
+      </div>
+      <div class="form-group">
+        <label class="sr-only" for="exampleInputPassword3">Password</label>
+        <input type="password" name="password" class="form-control" id="exampleInputPassword3" placeholder="Password">
+      </div>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox"> Remember me
+        </label>
+      </div>
+      <button type="submit" class="btn btn-default">Sign in</button>
+    </form>
+  </div>
+  
+  <!-- sign in info -->
+  <div class = "container">
+      <h1>Signed in as <%= nameVar %></h1>
+  </div>
+  
+  
+  
+  <!-- pictures grid -->
+  <div class = "container">
+	  <div class="row">
+	  	<div class="col-lg-4 col-md-6">
+	  		<div class = "thumbnail">
+	  			<a href="http://fb.com"><img src="http://i1-news.softpedia-static.com/images/news2/facebook-to-insert-annoying-ads-midway-through-the-videos-513256-2.jpg"></a>
+	  		</div>
+	  	</div>
+	  	<div class="col-lg-4 col-md-6">
+	  		<div class = "thumbnail">
+	  			<a href="http://twitter.com"><img src="http://shesconnectedblog.com/wp-content/uploads/2016/05/TWITTER-1.jpg"></a>
+	  		</div>
+	  	</div>
+	  	<div class="col-lg-4 col-md-6">
+	  		<div class = "thumbnail">
+	  			<a href="http://youtube.com"><img src="https://cdn.uploadvr.com/wp-content/uploads/2016/12/youtube-logo.png"></a>
+	  		</div>
+	  	</div>
+<div class="col-lg-4 col-md-6">
+	  		<div class = "thumbnail">
+	  			<a href="http://fb.com"><img src="http://i1-news.softpedia-static.com/images/news2/facebook-to-insert-annoying-ads-midway-through-the-videos-513256-2.jpg"></a>
+	  		</div>
+	  	</div>
+	  	<div class="col-lg-4 col-md-6">
+	  		<div class = "thumbnail">
+	  			<a href="http://twitter.com"><img src="http://shesconnectedblog.com/wp-content/uploads/2016/05/TWITTER-1.jpg"></a>
+	  		</div>
+	  	</div>
+	  	<div class="col-lg-4 col-md-6">
+	  		<div class = "thumbnail">
+	  			<a href="http://youtube.com"><img src="https://cdn.uploadvr.com/wp-content/uploads/2016/12/youtube-logo.png"></a>
+	  		</div>
+	  	</div>
+<div class="col-lg-4 col-md-6">
+	  		<div class = "thumbnail">
+	  			<a href="http://fb.com"><img src="http://i1-news.softpedia-static.com/images/news2/facebook-to-insert-annoying-ads-midway-through-the-videos-513256-2.jpg"></a>
+	  		</div>
+	  	</div>
+	  	<div class="col-lg-4 col-md-6">
+	  		<div class = "thumbnail">
+	  			<a href="http://twitter.com"><img src="http://shesconnectedblog.com/wp-content/uploads/2016/05/TWITTER-1.jpg"></a>
+	  		</div>
+	  	</div>
+	  	<div class="col-lg-4 col-md-6">
+	  		<div class = "thumbnail">
+	  			<a href="http://youtube.com"><img src="https://cdn.uploadvr.com/wp-content/uploads/2016/12/youtube-logo.png"></a>
+	  		</div>
+	  	</div>
+	  </div>
+	</div>
+
+
+	<script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<script src="/main.js"></script> <!-- main or /main -->
+
+
+<% include partials/footer %>

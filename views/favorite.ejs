@@ -1,0 +1,49 @@
+<% include partials/header %>
+	<!-- background image -->
+	<img class="bgmimick" src="https://wallpaperscraft.com/image/star_art_sky_night_people_silhouette_98142_1920x1080.jpg" />.
+
+	<!-- nav bar -->
+	<% include partials/navbar %>
+	
+	<!-- search results -->
+    <div class = "container" >
+        <div style="padding-top: 5%; text-align: center">
+            <h1 id="myFavTitle">My favorite</h1>
+        	<div>
+        		    <% if(movies.length > 0){ %>
+        		    	<% for(var i = 0; i < movies.length ; i+=3){ %>
+        		      		<div class="row">
+        		          	<% for(var j = 0; j<3 && j + i < movies.length; j++){ %>
+        		          		<div class="col-lg-4 col-md-6">
+        		               		<div class = "thumbnail">
+        		  			      		<img class="img-thumbnail" src= "<%= movies[i+j].Poster %>">
+        		  			      		<form action="/favorite/<%=movies[i+j]._id%>" method="GET">
+        		  			      			<button type="submit" class="btn btn-primary">Info</button>
+        		  			      		</form>
+        		  			      		<div class = "caption"> 
+        		  			      			<h4><%= movies[i+j].Title %></h4>
+        		  			      		</div>
+        		  					</div>
+        		  		  		</div>
+        		  		 	<% } %>
+        		       		</div>
+        		       	<% } %>
+        	        <!-- text search results-->
+        	        <div>
+        		    <% }else{ %>
+        		      <h1 style="text-align: center">You have no favorite</h1>
+        		    <% } %>
+        	</div>
+        </div>
+    </div>
+    
+  
+    <script
+	src="https://code.jquery.com/jquery-3.2.1.min.js"
+	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+	crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<script src="/main.js"></script> 
+
+
+<% include partials/footer %>

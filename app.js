@@ -1,0 +1,190 @@
+var express = require("express");
+var app = express();
+var bodyParser = require("body-parser");
+var request = require("request");
+var mongoose = require("mongoose");
+var Movie = require("./models/movie");
+var Blog = require("./models/blog");
+var localObj = {nameVar: "Guest"},
+    seedDB      = require("./seeds"),
+    Comment     = require("./models/comment");
+
+app.use(bodyParser.urlencoded({extended: true}));
+mongoose.connect("mongodb://localhost/movie_app");
+app.use(express.static("public"));
+console.log(__dirname);
+app.set("view engine", "ejs");
+seedDB();
+
+app.get("/", function(req, res){
+    res.render("home", localObj);
+});
+
+app.get("/results", function(req, res){
+    console.log(req.query);
+    var query = req.query.search;
+    var url = "http://www.omdbapi.com/?s=" + query + "&apikey=d0501ced";
+    request(url, function(error, response, body){
+        if(!error && response.statusCode == 200){
+            var data = JSON.parse(body);
+            var emptyData = [];
+            console.log("Array length is " + emptyData.length);
+            var errorMessage = "WTF";
+            if(data.Response === "True")
+                res.render("results", {data:data.Search, query: query, errorMessage: errorMessage});
+            else
+                res.render("results", {data: emptyData, query: query, errorMessage: data.Error});
+                
+        }
+    });
+});
+
+app.get("/favorite", function(req, res){
+    Movie.find({}, function(err, movies){
+        if(err){
+            console.log("Db is having trouble getting favorite movies");
+            console.log(err);
+        }else{
+            console.log("Db successfully get favorite movies");
+            res.render("favorite", {movies: movies});
+        }
+    });
+    
+});
+
+app.get("/favorite/:id", function(req, res){
+    Movie.findById(req.params.id, function(err, movie){
+        if(err){
+            console.log("Error finding info");
+            console.log(err);
+        }else{
+            console.log("Db successfully get the movie info");
+            res.render("show", {movie: movie});
+        }
+    });
+    
+});
+
+app.post("/favorite/new/:title", function(req, res) {
+    var title = req.params.title;
+    var url = "http://www.omdbapi.com/?t=" + title +"&plot=full&apikey=d0501ced";
+    console.log("url = " + url);
+    request(url, function(error, response, body){
+        
+        if(!error && response.statusCode == 200){
+            var data = JSON.parse(body);
+            console.log(data);
+            
+            Movie.create(data, function(err, obj){
+                if(err){
+                    console.log("Something went wrong!!");
+                }else{
+                    console.log("A movie is added into database");
+                    console.log(obj);
+                }
+            }); 
+        }else{
+            console.log("ohoh");
+        }
+        res.redirect("/favorite");
+    });
+
+});
+
+
+app.post("/signin", function(req, res){
+    localObj = {nameVar: req.body.username};
+    res.redirect("/");
+});
+
+app.get("/moviews/:id", function(req, res) {
+   res.render("show"); 
+});
+
+app.get("/blogs", function(req, res) {
+    // Get all blogs from DB
+    Blog.find({}, function(err, allBlogs){
+       if(err){
+           console.log(err);
+       } else {
+          res.render("blog posts/blogs",{blogs:allBlogs});
+       }
+    });
+});
+
+app.post("/blogs", function(req, res){
+    // get data from form and add to blogs array
+    var name = req.body.name;
+    var image = req.body.image;
+    var desc = req.body.description;
+    var newPost = {name: name, image: image, description: desc}
+    // Create a new campground and save to DB
+    Blog.create(newPost, function(err, newlyCreated){
+        if(err){
+            console.log(err);
+        } else {
+            //redirect back to campgrounds page
+            res.redirect("/blogs");
+        }
+    });
+});
+app.get("/blogs/new", function(req, res){
+   res.render("blog posts/newPost"); 
+});
+
+app.get("/blogs/:id", function(req, res){
+    //find the campground with provided ID
+    Blog.findById(req.params.id).populate("comments").exec(function(err, foundPost){
+        if(err){
+            console.log(err);
+        } else {
+            console.log(foundPost)
+            //render showPosts template with that post
+            res.render("blog posts/showPosts", {blog: foundPost});
+        }
+    });
+})
+
+// ====================
+// COMMENTS ROUTES
+// ====================
+
+app.get("/blogs/:id/comments/new", function(req, res){
+    // find campground by id
+    Blog.findById(req.params.id, function(err, blog){
+        if(err){
+            console.log(err);
+        } else {
+             res.render("comments/new", {blog: blog});
+        }
+    })
+});
+
+app.post("/blogs/:id/comments", function(req, res){
+   //lookup campground using ID
+   Blog.findById(req.params.id, function(err, blog){
+       if(err){
+           console.log(err);
+           res.redirect("/blogs");
+       } else {
+        Comment.create(req.body.comment, function(err, comment){
+           if(err){
+               console.log(err);
+           } else {
+               blog.comments.push(comment);
+               blog.save();
+               res.redirect('/blogs/' + blog._id);
+           }
+        });
+       }
+   });
+   //create new comment
+   //connect new comment to campground
+   //redirect campground show page
+});
+
+
+
+app.listen(process.env.PORT, process.env.IP, function(){
+    console.log("Server started!!!");
+});
