@@ -1,20 +1,40 @@
-var express = require("express");
-var app = express();
-var bodyParser = require("body-parser");
-var request = require("request");
-var mongoose = require("mongoose");
-var Movie = require("./models/movie");
-var Blog = require("./models/blog");
-var localObj = {nameVar: "Guest"},
-    seedDB      = require("./seeds"),
-    Comment     = require("./models/comment");
+var express         = require("express"),
+    app             = express(),
+    bodyParser      = require("body-parser"),
+    request         = require("request"),
+    mongoose        = require("mongoose"),
+    passport        = require("passport"),
+    LocalStrategy   = require("passport-local"),
+    passportLocalMongoose = require("passport-local-mongoose"),
+    Movie           = require("./models/movie"),
+    Blog            = require("./models/blog"),
+    localObj        = {nameVar: "Guest"},
+    seedDB          = require("./seeds"),
+    User            = require("./models/user"),
+    Comment         = require("./models/comment");
 
 app.use(bodyParser.urlencoded({extended: true}));
 mongoose.connect("mongodb://localhost/movie_app");
 app.use(express.static("public"));
-console.log(__dirname);
+
 app.set("view engine", "ejs");
 seedDB();
+
+//passport configuration
+app.use(require("express-session")({
+    secret: "This is Anfield",
+    resave: false,
+    saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+//============
+// ROUTES
+//============
 
 app.get("/", function(req, res){
     res.render("home", localObj);
@@ -161,7 +181,7 @@ app.get("/blogs/:id/comments/new", function(req, res){
 });
 
 app.post("/blogs/:id/comments", function(req, res){
-   //lookup campground using ID
+   //lookup blog using ID
    Blog.findById(req.params.id, function(err, blog){
        if(err){
            console.log(err);
@@ -181,6 +201,42 @@ app.post("/blogs/:id/comments", function(req, res){
    //create new comment
    //connect new comment to campground
    //redirect campground show page
+});
+
+//  ===========
+// AUTH ROUTES
+//  ===========
+
+// show register form
+app.get("/register", function(req, res){
+   res.render("register"); 
+});
+
+//handle sign up logic
+app.post("/register", function(req, res){
+    var newUser = new User({username: req.body.username});
+    User.register(newUser, req.body.password, function(err, user){
+        if(err){
+            console.log(err);
+            return res.render("register");
+        }
+        passport.authenticate("local")(req, res, function(){
+           res.redirect("/blogs"); 
+        });
+    });
+});
+
+// show login form
+app.get("/login", function(req, res){
+   res.render("login"); 
+});
+
+// handling login logic
+app.post("/login", passport.authenticate("local", 
+    {
+        successRedirect: "/blogs",
+        failureRedirect: "/login"
+    }), function(req, res){
 });
 
 
