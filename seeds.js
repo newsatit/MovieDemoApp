@@ -9,13 +9,13 @@ var data = [
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum vitae nibh nisl. Nam commodo nisl sed commodo iaculis. Pellentesque mattis ipsum luctus eros feugiat efficitur. Mauris at erat ut orci venenatis porta. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Ut vel pulvinar nulla. Praesent pharetra libero et elit tempor imperdiet. Morbi rhoncus urna quis feugiat aliquet. Nulla pellentesque nunc id quam aliquet ullamcorper. Mauris luctus ac sem eget fermentum. Praesent blandit ut massa sed rutrum. Curabitur blandit massa nec mattis auctor. In et elit massa."
     },
     {
-        name: "Desert Mesa", 
-        image: "https://farm4.staticflickr.com/3859/15123592300_6eecab209b.jpg",
+        name: "Star Wars: The Last Jedi", 
+        image: "https://s.aolcdn.com/hss/storage/midas/8c786b6e2ab90b7d527621886ee9ff4d/205751517/sw-tlj-ed.jpg",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum vitae nibh nisl. Nam commodo nisl sed commodo iaculis. Pellentesque mattis ipsum luctus eros feugiat efficitur. Mauris at erat ut orci venenatis porta. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Ut vel pulvinar nulla. Praesent pharetra libero et elit tempor imperdiet. Morbi rhoncus urna quis feugiat aliquet. Nulla pellentesque nunc id quam aliquet ullamcorper. Mauris luctus ac sem eget fermentum. Praesent blandit ut massa sed rutrum. Curabitur blandit massa nec mattis auctor. In et elit massa."
     },
     {
-        name: "Canyon Floor", 
-        image: "https://farm1.staticflickr.com/189/493046463_841a18169e.jpg",
+        name: "Forrest Gump", 
+        image: "https://usercontent2.hubstatic.com/11566169_f520.jpg",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum vitae nibh nisl. Nam commodo nisl sed commodo iaculis. Pellentesque mattis ipsum luctus eros feugiat efficitur. Mauris at erat ut orci venenatis porta. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Ut vel pulvinar nulla. Praesent pharetra libero et elit tempor imperdiet. Morbi rhoncus urna quis feugiat aliquet. Nulla pellentesque nunc id quam aliquet ullamcorper. Mauris luctus ac sem eget fermentum. Praesent blandit ut massa sed rutrum. Curabitur blandit massa nec mattis auctor. In et elit massa."
     }
 ]
