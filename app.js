@@ -14,6 +14,7 @@ var express         = require("express"),
     Comment         = require("./models/comment");
 
 var blogRoutes = require("./routes/blogs");
+var commentRoutes = require("./routes/comments");
 
 
 app.use(bodyParser.urlencoded({extended: true}));
@@ -131,6 +132,7 @@ app.get("/moviews/:id", function(req, res) {
 });
 
 app.use(blogRoutes);
+app.use(commentRoutes);
 
 
 // ====================
