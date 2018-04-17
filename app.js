@@ -13,8 +13,9 @@ var express         = require("express"),
     User            = require("./models/user"),
     Comment         = require("./models/comment");
 
-var blogRoutes = require("./routes/blogs");
-var commentRoutes = require("./routes/comments");
+var blogRoutes = require("./routes/blogs"),
+    commentRoutes = require("./routes/comments"),
+    indexRoutes = require("./routes/index");
 
 
 app.use(bodyParser.urlencoded({extended: true}));
@@ -122,98 +123,14 @@ app.post("/favorite/new/:title", function(req, res) {
 });
 
 
-app.post("/signin", function(req, res){
-    localObj = {nameVar: req.body.username};
-    res.redirect("/");
-});
-
 app.get("/moviews/:id", function(req, res) {
    res.render("show"); 
 });
 
 app.use(blogRoutes);
 app.use(commentRoutes);
+app.use(indexRoutes);
 
-
-// ====================
-// COMMENTS ROUTES
-// ====================
-
-app.get("/blogs/:id/comments/new", isLoggedIn, function(req, res){
-    // find campground by id
-    Blog.findById(req.params.id, function(err, blog){
-        if(err){
-            console.log(err);
-        } else {
-             res.render("comments/new", {blog: blog});
-        }
-    })
-});
-
-app.post("/blogs/:id/comments", isLoggedIn,function(req, res){
-   //lookup blog using ID
-   Blog.findById(req.params.id, function(err, blog){
-       if(err){
-           console.log(err);
-           res.redirect("/blogs");
-       } else {
-        Comment.create(req.body.comment, function(err, comment){
-           if(err){
-               console.log(err);
-           } else {
-               blog.comments.push(comment);
-               blog.save();
-               res.redirect('/blogs/' + blog._id);
-           }
-        });
-       }
-   });
-   //create new comment
-   //connect new comment to campground
-   //redirect campground show page
-});
-
-//  ===========
-// AUTH ROUTES
-//  ===========
-
-// show register form
-app.get("/register", function(req, res){
-   res.render("register"); 
-});
-
-//handle sign up logic
-app.post("/register", function(req, res){
-    var newUser = new User({username: req.body.username});
-    User.register(newUser, req.body.password, function(err, user){
-        if(err){
-            console.log(err);
-            return res.render("register");
-        }
-        passport.authenticate("local")(req, res, function(){
-           res.redirect("/blogs"); 
-        });
-    });
-});
-
-// show login form
-app.get("/login", function(req, res){
-   res.render("login"); 
-});
-
-// handling login logic
-app.post("/login", passport.authenticate("local", 
-    {
-        successRedirect: "/blogs",
-        failureRedirect: "/login"
-    }), function(req, res){
-});
-
-// logic route
-app.get("/logout", function(req, res){
-   req.logout();
-   res.redirect("/blogs");
-});
 
 function isLoggedIn(req, res, next){
     if(req.isAuthenticated()){

@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-var Blog = require("../models/blog")
+var Blog = require("../models/blog");
 router.get("/blogs", function(req, res) {
     // Get all blogs from DB
     Blog.find({}, function(err, allBlogs){
