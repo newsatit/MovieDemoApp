@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var Blog = require("../models/blog");
-router.get("/blogs", function(req, res) {
+router.get("/", function(req, res) {
     // Get all blogs from DB
     Blog.find({}, function(err, allBlogs){
        if(err){
@@ -12,7 +12,7 @@ router.get("/blogs", function(req, res) {
     });
 });
 
-router.post("/blogs", function(req, res){
+router.post("/", function(req, res){
     // get data from form and add to blogs array
     var name = req.body.name;
     var image = req.body.image;
@@ -28,11 +28,11 @@ router.post("/blogs", function(req, res){
         }
     });
 });
-router.get("/blogs/new", function(req, res){
+router.get("/new", function(req, res){
    res.render("blog posts/newPost"); 
 });
 
-router.get("/blogs/:id", function(req, res){
+router.get("/:id", function(req, res){
     //find the campground with provided ID
     Blog.findById(req.params.id).populate("comments").exec(function(err, foundPost){
         if(err){

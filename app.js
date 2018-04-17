@@ -48,19 +48,10 @@ app.get("/moviews/:id", function(req, res) {
    res.render("show"); 
 });
 
-app.use(blogRoutes);
-app.use(commentRoutes);
-app.use(indexRoutes);
-app.use(omdbRoutes);
-
-
-function isLoggedIn(req, res, next){
-    if(req.isAuthenticated()){
-        return next();
-    }
-    res.redirect("/login");
-}
-
+app.use("/blogs", blogRoutes);
+app.use("/blogs/:id/comments", commentRoutes);
+app.use("/", indexRoutes);
+app.use("/", omdbRoutes);
 
 app.listen(process.env.PORT, process.env.IP, function(){
     console.log("Server started!!!");
