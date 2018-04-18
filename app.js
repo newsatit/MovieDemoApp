@@ -24,7 +24,7 @@ mongoose.connect("mongodb://localhost/movie_app");
 app.use(express.static("public"));
 
 app.set("view engine", "ejs");
-seedDB();
+//seedDB(); // seed database
 
 //passport configuration
 app.use(require("express-session")({

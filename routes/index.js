@@ -6,8 +6,6 @@ var passport = require("passport");
 router.get("/", function(req, res){
     res.render("home");
 });
-
-
 //  ===========
 // AUTH ROUTES
 //  ===========
